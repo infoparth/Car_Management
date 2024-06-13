@@ -9,6 +9,7 @@ import {
 import { Label } from "@/components/ui/label";
 
 export default function ProfilePage({ params }: any) {
+  console.log(params);
   return (
     <Card>
       <CardHeader>
