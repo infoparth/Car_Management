@@ -16,10 +16,10 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
       //   verifyTokenExpiry: Date.now() + 3600000,
       // });
       await prisma.user.update({
-        where: { userId },
+        where: { id: userId },
         data: {
           verifyToken: hashedToken,
-          verifyTokenExpiry: Date.now() + 3600000,
+          verifyTokenExpiry: (Date.now() + 3600000).toString(),
         },
       });
     } else if (emailType === "RESET") {
@@ -28,10 +28,10 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
       //   forgotPasswordTokenExpiry: Date.now() + 3600000,
       // });
       await prisma.user.update({
-        where: { userId },
+        where: { id: userId },
         data: {
           forgotPasswordToken: hashedToken,
-          forgotPasswordTokenExpiry: Date.now() + 3600000,
+          forgotPasswordTokenExpiry: (Date.now() + 3600000).toString(),
         },
       });
     }

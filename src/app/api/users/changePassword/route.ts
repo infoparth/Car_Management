@@ -35,10 +35,10 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcryptjs.hash(newpassword, salt);
 
     user.password = hashedPassword;
-    user.forgotPasswordTokenExpiry = undefined;
-    user.forgotPasswordToken = undefined;
+    user.forgotPasswordTokenExpiry = null;
+    user.forgotPasswordToken = null;
 
-    await user.save();
+    // await user.save();
 
     return NextResponse.json({
       message: "Email Verified successfully",

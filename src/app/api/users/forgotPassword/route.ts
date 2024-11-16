@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: "User not Found" }, { status: 404 });
     } else {
-      const userId = user._id;
+      const userId = user.id;
       await sendEmail({ email, emailType: "RESET", userId: userId });
     }
 
