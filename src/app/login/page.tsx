@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import cyber from "@/assets/cyber.jpg";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -78,7 +79,7 @@ export default function LoginPage() {
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
                 <Link
-                  href="/forgot-password"
+                  href="/forgotPasswordEnterEmail"
                   className="ml-auto inline-block text-sm underline"
                 >
                   Forgot your password?
@@ -100,7 +101,7 @@ export default function LoginPage() {
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
+            Dont have an account?{" "}
             <Link href="/signup" className="underline">
               Sign up
             </Link>
@@ -109,7 +110,7 @@ export default function LoginPage() {
       </div>
       <div className="hidden bg-muted lg:block">
         <Image
-          src="/placeholder.svg"
+          src={cyber}
           alt="Image"
           width="1920"
           height="1080"

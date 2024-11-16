@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import ford from "@/assets/ford.png";
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function SignUpForm() {
           title: "Uh oh! Something went wrong.",
           description: "There was a problem with your request.",
         });
-        console.log("Some errorr");
+        console.log("Some error");
       }
     } catch (error: any) {
       console.log("Sign up failed:", error.response.status);
@@ -58,78 +59,85 @@ export default function SignUpForm() {
     }
   };
   return (
-    <>
-      <Card className="mx-auto max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-xl">Sign Up</CardTitle>
-          <CardDescription>
-            Enter your information to create an account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4">
-            <div className="grid grid-cols-2 gap-4">
+    <div
+      className="min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: `url(${ford.src})` }}
+    >
+      <div className="flex items-start justify-start min-h-screen bg-black bg-opacity-50 p-8">
+        <Card className="max-w-sm">
+          <CardHeader>
+            <CardTitle className="text-xl">Sign Up</CardTitle>
+            <CardDescription>
+              Enter your information to create an account
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="first-name">First name</Label>
+                  <Input
+                    id="first-name"
+                    placeholder="Max"
+                    required
+                    value={user.first_name}
+                    onChange={(e) =>
+                      setUser({ ...user, first_name: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="last-name">Last name</Label>
+                  <Input
+                    id="last-name"
+                    placeholder="Robinson"
+                    required
+                    value={user.last_name}
+                    onChange={(e) =>
+                      setUser({ ...user, last_name: e.target.value })
+                    }
+                  />
+                </div>
+              </div>
               <div className="grid gap-2">
-                <Label htmlFor="first-name">First name</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
-                  id="first-name"
-                  placeholder="Max"
+                  id="email"
+                  type="email"
+                  placeholder="m@example.com"
                   required
-                  value={user.first_name}
-                  onChange={(e) =>
-                    setUser({ ...user, first_name: e.target.value })
-                  }
+                  value={user.email}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="last-name">Last name</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
-                  id="last-name"
-                  placeholder="Robinson"
-                  required
-                  value={user.last_name}
+                  id="password"
+                  type="password"
+                  value={user.password}
                   onChange={(e) =>
-                    setUser({ ...user, last_name: e.target.value })
+                    setUser({ ...user, password: e.target.value })
                   }
                 />
               </div>
+              <Button type="submit" className="w-full" onClick={onSignUp}>
+                Create an account
+              </Button>
+              <Button variant="outline" className="w-full">
+                Sign up with GitHub
+              </Button>
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                value={user.email}
-                onChange={(e) => setUser({ ...user, email: e.target.value })}
-              />
+            <div className="mt-4 text-center text-sm">
+              Already have an account?{" "}
+              <Link href="/login" className="underline">
+                Sign in
+              </Link>
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={user.password}
-                onChange={(e) => setUser({ ...user, password: e.target.value })}
-              />
-            </div>
-            <Button type="submit" className="w-full" onClick={onSignUp}>
-              Create an account
-            </Button>
-            <Button variant="outline" className="w-full">
-              Sign up with GitHub
-            </Button>
-          </div>
-          <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
-            <Link href="/login" className="underline">
-              Sign in
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
-      <Toaster />
-    </>
+          </CardContent>
+        </Card>
+        <Toaster />
+      </div>
+    </div>
   );
 }

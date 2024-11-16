@@ -3,8 +3,9 @@ import User from "@/models/useModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import prisma from "@/lib/prisma";
 
-connect();
+// connect();
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +16,11 @@ export async function POST(request: NextRequest) {
 
     // check if user exists
 
-    const user = await User.findOne({ email });
+    // const user = await User.findOne({ email });
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
 
     console.log("The user is", user);
 
@@ -40,10 +45,10 @@ export async function POST(request: NextRequest) {
     //create the token data
 
     const tokenData = {
-      id: user._id,
+      id: user.id,
       email: user.email,
       password: user.password,
-      name: user.first_name,
+      name: user.firstName,
     };
 
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
@@ -54,7 +59,6 @@ export async function POST(request: NextRequest) {
       message: "User Logegd in successfully",
       success: true,
     });
-
     response.cookies.set("token", token, {
       httpOnly: true,
     });
