@@ -1,53 +1,9 @@
-"use client";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { api } from "@/lib/api";
-
-interface Car {
-  id: string;
-  title: string;
-  description: string;
-  images: string[];
-  carType: string;
-  company: string;
-  dealer: string;
-  tags: string[];
-  createdAt: string;
-  updatedAt: string;
-  userId: string;
-}
-
-export default function CarsListPage() {
-  const [cars, setCars] = useState<Car[]>();
-  const [search, setSearch] = useState("");
-  const router = useRouter();
-
-  useEffect(() => {
-    const fetchCars = async () => {
-      const data = await api.getCars(search);
-      setCars(data);
-    };
-    fetchCars();
-  }, [search]);
-
+export default function Page() {
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search cars..."
-        />
-      </div>
-      <div>
-        {cars && cars.map((car: any) => (
-          <div key={car.id} onClick={() => router.push(`/cars/${car.id}`)}>
-            <h3>{car.title}</h3>
-            <p>{car.description}</p>
-            <div>{car.tags.join(", ")}</div>
-            {car.images[0] && <img src={car.images[0]} alt={car.title} />}
-          </div>
+    <div className="flex flex-1 flex-col gap-4 p-4">
+      <div className="grid auto-rows-min gap-4 md:grid-cols-5">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <div key={i} className="aspect-square rounded-xl bg-muted/50" />
         ))}
       </div>
     </div>

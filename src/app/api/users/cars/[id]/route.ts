@@ -9,7 +9,13 @@ export async function GET(
   try {
     const userId = await getUIDDataFromToken(request);
 
-    const car = await prisma.car.findUnique({
+    // const car = await prisma.car.findUnique({
+    //   where: {
+    //     id: params.id,
+    //     userId: userId,
+    //   },
+    // });
+    const car = await prisma.car.findFirst({
       where: {
         id: params.id,
         userId: userId,
@@ -46,7 +52,26 @@ export async function PUT(
       );
     }
 
-    const car = await prisma.car.update({
+    // const car = await prisma.car.update({
+    //   where: {
+    //     id: params.id,
+    //     userId: userId,
+    //   },
+    //   data: body,
+    // });
+    const car = await prisma.car.findFirst({
+      where: {
+        id: params.id,
+        userId: userId,
+      },
+    });
+
+    if (!car) {
+      return NextResponse.json({ error: "Car not found" }, { status: 404 });
+    }
+
+    // Update the car
+    const updatedCar = await prisma.car.updateMany({
       where: {
         id: params.id,
         userId: userId,
@@ -54,7 +79,7 @@ export async function PUT(
       data: body,
     });
 
-    return NextResponse.json(car);
+    return NextResponse.json(updatedCar);
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },

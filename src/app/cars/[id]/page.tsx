@@ -46,7 +46,7 @@ export default function CarDetailPage({ params }: { params: { id: string } }) {
               <img
                 key={index}
                 src={image}
-                alt={`${car.title} - ${index + 1}`}
+                alt={`${car.title} - ${index + 0}`}
               />
             ))}
           </div>
